@@ -1,0 +1,13 @@
+# API Keys required for the LinkedIn Content Agent
+
+# Linkup API Key - Get from https://linkup.so
+LINKUP_API_KEY=your_linkup_api_key_here
+
+# OpenAI API Key - Get from https://platform.openai.com
+OPENAI_API_KEY=your_openai_api_key_here
+
+# Specify OpenAI model - using GPT-4.1 for better performance
+OPENAI_MODEL_NAME=gpt-4-turbo-preview
+
+# Optional: Set temperature for creativity (0.0 = conservative, 1.0 = creative)
+OPENAI_TEMPERATURE=0.7 
