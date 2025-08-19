@@ -34,45 +34,34 @@ cd linkedin-content-agent
 
 2. **Create and activate virtual environment**:
 ```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+uv venv
+source .venv/bin/activate
 ```
 
 3. **Install dependencies**:
 ```bash
-pip install -r requirements.txt
+uv sync  
 ```
 
 4. **Set up environment variables**:
 ```bash
-# Copy the example file
-cp env_example.txt .env
-
-# Edit .env with your API keys
-LINKUP_API_KEY=your_linkup_api_key_here
-OPENAI_API_KEY=your_openai_api_key_here
-OPENAI_MODEL_NAME=gpt-4-turbo-preview
+# Copy the example file and edit it with your real API keys
+cp .env.example .env
 ```
 
 5. **Test your setup**:
 ```bash
-python test_linkup.py
+uv run test_linkup.py
 ```
 
 ## Usage
 
 ### Basic Usage
 
-First, test your API connections:
+Run the interactive workflow:
 
 ```bash
-python test_linkup.py
-```
-
-Then run the interactive workflow:
-
-```bash
-python crew.py
+uv run crew.py
 ```
 
 You'll be prompted to enter a specific topic or press Enter to research general trends.
@@ -122,17 +111,16 @@ What's one way your organization personalizes the work experience?
 ```
 linkedin-content-agent/
 ├── agents/
-│   ├── research_agent.py      # Linkup research agent
+│   ├── research_agent.py         # Linkup research agent
 │   └── content_creator_agent.py  # LinkedIn content creator
 ├── tasks/
-│   ├── research_task.py       # Research task definition
+│   ├── research_task.py          # Research task definition
 │   └── content_creation_task.py  # Content creation task
 ├── tools/
-│   └── linkup_tool.py         # Linkup API integration
-├── crew.py                    # Main orchestration file
-├── requirements.txt           # Python dependencies
-├── .env.example              # Environment variables template
-└── README.md                 # This file
+│   └── linkup_tool.py            # Linkup API integration
+├── crew.py                       # Main orchestration file
+├── .env.example                  # Environment variables template
+└── README.md                     # This file
 ```
 
 ## Workflow
@@ -164,23 +152,6 @@ Modify task files in the `tasks/` directory to:
 - Create additional agents for specialized tasks
 - Implement different content formats (Twitter, blog posts, etc.)
 
-## Environment Variables
-
-| Variable | Description | Required |
-|----------|-------------|----------|
-| `LINKUP_API_KEY` | Your Linkup API key for research | Yes |
-| `OPENAI_API_KEY` | Your OpenAI API key for AI agents | Yes |
-| `OPENAI_MODEL_NAME` | OpenAI model to use (default: gpt-3.5-turbo) | No |
-| `OPENAI_TEMPERATURE` | Creativity level 0.0-1.0 (default: 0.7) | No |
-
-## Troubleshooting
-
-### Common Issues
-
-1. **API Key Errors**: Ensure your API keys are correctly set in the `.env` file
-2. **Network Issues**: Check your internet connection and API service status
-3. **Rate Limits**: If you hit rate limits, wait a few minutes before retrying
-
 ### Debug Mode
 
 Set `verbose=True` in the crew configuration for detailed logging:
@@ -193,14 +164,6 @@ crew = Crew(
     verbose=True  # Enable debug mode
 )
 ```
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
 
 ## License
 
