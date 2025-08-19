@@ -15,10 +15,10 @@ class LinkupSearchInput(BaseModel):
 class LinkupSearchTool(BaseTool):
     name: str = "Linkup Search Tool"
     description: str = (
-        "Searches for relevant content and trends using Linkup API. "
-        "Use this tool to find current industry insights, trending topics, "
-        "and professional content that can be used for LinkedIn posts."
-    )
+        """Searches for relevant content and trends using Linkup API. 
+        Use this tool to find current industry insights, trending topics, 
+        and professional content that can be used for LinkedIn posts."""
+    ).strip()
     args_schema: Type[BaseModel] = LinkupSearchInput
 
     def _run(self, query: str) -> str:
@@ -54,19 +54,7 @@ class LinkupSearchTool(BaseTool):
             return "Error: linkup-sdk not installed. Please run: pip install linkup-sdk"
         except Exception as e:
             error_msg = str(e)
-            
-            if "401" in error_msg or "unauthorized" in error_msg.lower():
-                return "Error: Invalid Linkup API key. Please check your LINKUP_API_KEY."
-            elif "403" in error_msg or "forbidden" in error_msg.lower():
-                return "Error: Access forbidden. Please check your Linkup API permissions."
-            elif "429" in error_msg or "rate limit" in error_msg.lower():
-                return "Error: Rate limit exceeded. Please wait a moment and try again."
-            elif "timeout" in error_msg.lower():
-                return "Error: Request to Linkup API timed out. Please try again."
-            elif "connection" in error_msg.lower():
-                return "Error: Failed to connect to Linkup API. Please check your internet connection."
-            else:
-                return f"Error: Unexpected error occurred - {error_msg}"
+            return f"Error: {error_msg}"
 
     def _parallel_trending_search(self, client, query: str) -> str:
         """

@@ -50,7 +50,6 @@ def test_linkup_api():
         )
         
         print("✅ Direct SDK test successful")
-        print(f"📊 Response type: {type(response)}")
         
         if hasattr(response, 'answer'):
             answer_preview = response.answer[:200] + "..." if len(response.answer) > 200 else response.answer
