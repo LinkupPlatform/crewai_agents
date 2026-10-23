@@ -12,3 +12,8 @@ dependencies = [
     "python-dotenv>=1.0.0",
     "requests>=2.31.0",
 ]
+
+[tool.uv]
+exclude-newer = "2 weeks" # Reduce risks of supply chain attacks
+exclude-newer-package = { certifi = "2026-10-21T00:00:00Z", uv = "2026-10-23T00:00:00Z" } # HACK: temporary security exceptions; remove after the two-week cooldown
+required-version = ">=0.13.5,<0.14.0"
